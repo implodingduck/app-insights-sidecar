@@ -8,11 +8,14 @@ on:
   push:
     branches: [ main ]
     tags: [ 'v*.*.*' ]
-  pull_request:
-    branches: [ main ]
-  paths:
+    paths:
     - 'sampleapp/**'
 
+  pull_request:
+    branches: [ main ]
+    paths:
+    - 'sampleapp/**'
+  
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
