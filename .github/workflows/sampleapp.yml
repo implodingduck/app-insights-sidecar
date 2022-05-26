@@ -26,16 +26,16 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}-sampleapp
 
-
+defaults:
+    run:
+      working-directory: ./sampleapp
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./sampleapp
+   
     permissions:
       contents: read
       packages: write
