@@ -24,14 +24,15 @@ spec:
           volumeMounts:
             - name: var-logs
               mountPath: /var/log
-        # - image: busybox
-        #   command: ["/bin/sh"]
-        #   args: ["-c", "while true; do echo $(date -u) 'Hi I am from Sidecar container 1' >> /var/log/index.html; sleep 60;done"]
-        #   name: sidecar-container1
-        #   resources: {}
-        #   volumeMounts:
-        #     - name: var-logs
-        #       mountPath: /var/log
+        - image: ghcr.io/implodingduck/app-insights-sidecar:2428954176
+          name: sidecar-container1
+          env:
+          - name: APPINSIGHTS_CONNECTION_STRING
+            value: "InstrumentationKey=a6db2306-1a8b-4296-a19d-47c2b7f662d1;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/"
+          resources: {}
+          volumeMounts:
+            - name: var-logs
+              mountPath: /var/log
       volumes:
       - name: var-logs
         emptyDir: {}

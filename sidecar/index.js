@@ -1,8 +1,6 @@
 const appInsights = require("applicationinsights");
 
-appInsights.defaultClient.commonProperties = {
-    sidecar: true
-};
+
 
 appInsights.setup(process.env.APPINSIGHTS_CONNECTION_STRING)
     .setAutoDependencyCorrelation(false)
@@ -15,7 +13,10 @@ appInsights.setup(process.env.APPINSIGHTS_CONNECTION_STRING)
     .setSendLiveMetrics(false)
     .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
     .start();
-
+    
+appInsights.defaultClient.commonProperties = {
+    sidecar: true
+};
 const chokidar = require('chokidar');
 
 chokidar.watch('/var/log').on('all', (event, path) => {
