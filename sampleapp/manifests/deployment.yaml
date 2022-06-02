@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sampleapp
+  labels:
+    app: sampleapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sampleapp
+  template:
+    metadata:
+      labels:
+        app: sampleapp
+    spec:
+      containers:
+        - name: sampleapp
+          image: ghcr.io/implodingduck/app-insights-sidecar-sampleapp:main
+          ports:
+            - containerPort: 8080
+          command: ["/bin/sh"]
+          args: ["-c", "node index.js | tee /var/log/app.log"]
+          volumeMounts:
+            - name: var-logs
+              mountPath: /var/log
+        # - image: busybox
+        #   command: ["/bin/sh"]
+        #   args: ["-c", "while true; do echo $(date -u) 'Hi I am from Sidecar container 1' >> /var/log/index.html; sleep 60;done"]
+        #   name: sidecar-container1
+        #   resources: {}
+        #   volumeMounts:
+        #     - name: var-logs
+        #       mountPath: /var/log
+      volumes:
+      - name: var-logs
+        emptyDir: {}

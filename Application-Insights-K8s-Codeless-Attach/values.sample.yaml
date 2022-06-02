@@ -1,0 +1,8 @@
+app:
+  iKey: "" # instrumentation key of Application Insights resource to send telemetry to
+  telemetryIkey: ""
+  telemetryConnString: ""
+  kVerMajor: "1"
+  kVerMinor: "23"
+  kVerRev: "5"
+  caBundle: ""

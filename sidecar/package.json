@@ -1,0 +1,15 @@
+{
+  "name": "app-insights-sidecar",
+  "version": "1.0.0",
+  "description": "side car for App Insights",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "applicationinsights": "^2.3.3",
+    "chokidar": "^3.5.3"
+  }
+}
