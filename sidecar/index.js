@@ -1,6 +1,6 @@
 const appInsights = require("applicationinsights");
-
-
+const chokidar = require('chokidar');
+const Tail = require('tail-file');
 
 appInsights.setup(process.env.APPINSIGHTS_CONNECTION_STRING)
     .setAutoDependencyCorrelation(false)
@@ -17,7 +17,25 @@ appInsights.setup(process.env.APPINSIGHTS_CONNECTION_STRING)
 appInsights.defaultClient.commonProperties = {
     sidecar: true
 };
-const chokidar = require('chokidar');
+
+const client = appInsights.defaultClient;
+
+class Tail_To_Insights {
+    constructor(path) {
+        this.path = path;
+        this.tail = new Tail(path, (line) =>{
+            let traceEvent = {
+                message: line, 
+                properties: { 
+                    path: path 
+                }
+            };
+
+            console.log( JSON.stringify(traceEvent) );
+            client.trackTrace(traceEvent);
+        });
+    }
+}
 
 const filesBeingTailed = {}
 chokidar.watch('/var/log', {
@@ -28,7 +46,7 @@ chokidar.watch('/var/log', {
     if (event === 'add' || event === 'change'){
         if (filesBeingTailed[path] === undefined){
             console.log("yeah I should probably do something here")
-            filesBeingTailed[path] = "TBD"
+            filesBeingTailed[path] = new Tail_To_Insights(path)
         }
     }
 });
