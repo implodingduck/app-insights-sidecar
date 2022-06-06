@@ -71,9 +71,6 @@ https.createServer(options, (req, res) => {
 
                 jsonPatch = rfc6902.createPatch(jsonBody, newJsonBody)
                 console.log(`jsonPatch: ${JSON.stringify(jsonPatch)}`)
-
-                let jsonPatch2 = rfc6902.createPatch(newJsonBody, jsonBody)
-                console.log(`jsonPatch2: ${JSON.stringify(jsonPatch2)}`)
             }
             
             res.writeHead(200, { "Content-Type": "application/json" });
@@ -88,7 +85,7 @@ https.createServer(options, (req, res) => {
             }
             if (jsonPatch){
                 resp.response.patchType = "JSONPatch"
-                resp.response.patch = Buffer.from(jsonPatch).toString('base64')
+                resp.response.patch = Buffer.from(JSON.stringify(jsonPatch)).toString('base64')
             }
             console.log(`My resp: ${JSON.stringify(resp)}`)
             res.end(JSON.stringify(resp));
