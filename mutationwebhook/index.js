@@ -65,9 +65,11 @@ https.createServer(options, (req, res) => {
                 }
     
                 console.log(`Sidecar Json: ${JSON.stringify(sidecarJson)}`)
-                newJsonBody.request.object.spec.containers.push(sidecarJson)
+                newJsonBody = newJsonBody.request.object.spec.containers.push(sidecarJson)
 
                 jsonPatch = rfc6902.createPatch(jsonBody, newJsonBody)
+                console.log(`jsonPatch raw: ${jsonPatch}`)
+                console.log(`jsonPatch: ${JSON.stringify(jsonPatch)}`)
             }
             
             res.writeHead(200, { "Content-Type": "application/json" });
