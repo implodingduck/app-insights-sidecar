@@ -115,3 +115,30 @@ metadata:
   namespace: ${namespace}
 type: Opaque
 EOF
+
+cat <<EOF > ./3-webhook.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: app-insights-sidecar-webhook
+  namespace: kube-system
+  labels:
+    app: app-insights-sidecar-webhook
+webhooks:
+- admissionReviewVersions: ["v1"]
+  name: app-insights-sidecar-webhook.azmk8s.io
+  clientConfig:
+    caBundle: ${CA_BUNDLE}
+    service:
+      name: app-insights-sidecar-webhook
+      namespace: kube-system
+      path: "/"
+      port: 443
+  rules:
+    - operations: ["CREATE"]
+      apiGroups: [""]
+      apiVersions: ["v1"]
+      resources: ["pods"]
+  sideEffects: None
+  failurePolicy: Ignore
+EOF

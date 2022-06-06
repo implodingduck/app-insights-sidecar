@@ -12,7 +12,7 @@ webhooks:
     caBundle: ${kubectl config view --raw --minify --flatten -o jsonpath='{.clusters[].cluster.certificate-authority-data}'}
     service:
       name: app-insights-sidecar-webhook
-      namespace: default
+      namespace: kube-system
       path: "/"
       port: 443
   rules:

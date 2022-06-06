@@ -8,7 +8,7 @@ console.log(`listening on port ${port}`, "");
 try {
     options = {
         cert: fs.readFileSync("/ssl/cert.pem"),
-        key: fs.readFileSync("/ssl/cert.key"),
+        key: fs.readFileSync("/ssl/key.pem"),
     };
     console.log("loaded certificates from /mnt");
 } catch {
