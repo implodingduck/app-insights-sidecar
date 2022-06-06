@@ -27,7 +27,7 @@ https.createServer(options, (req, res) => {
         });
         req.on("end", () => {
             const jsonBody = JSON.parse(body)
-            const newJsonBody = JSON.parse(body)
+            let newJsonBody = JSON.parse(body)
             console.log(`hello world! ${body}`)
             console.log("----------")
             console.log(`Namespace: ${JSON.stringify(jsonBody.request.namespace)}`)
