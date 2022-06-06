@@ -1,6 +1,6 @@
 const fs = require("fs");
 const https = require("https");
-const Buffer = require("buffer");
+import { Buffer } from 'node:buffer';
 const rfc6902 = require('rfc6902')
 
 let options;
