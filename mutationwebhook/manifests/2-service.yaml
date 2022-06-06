@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: app-insights-sidecar-webhook
+spec:
+  selector:
+    app: app-insights-sidecar-webhook
+  ports:
+    - port: 443
+      targetPort: 8443

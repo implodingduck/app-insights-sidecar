@@ -1,0 +1,31 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: app-insights-sidecar-webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-insights-sidecar-webhook
+  template:
+    metadata:
+      labels:
+        app: app-insights-sidecar-webhook
+    spec:
+      containers:
+        - name: app-insights-sidecar-webhook
+          image: ghcr.io/implodingduck/app-insights-sidecar-webhook:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8443
+          volumeMounts:
+            - name: cert
+              mountPath: /ssl
+              readOnly: true
+      volumes:
+        - name: cert
+          secret:
+            secretName: app-insights-sidecar-webhook

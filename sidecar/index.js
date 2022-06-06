@@ -1,8 +1,6 @@
 const appInsights = require("applicationinsights");
-const chokidar = require('chokidar');
-const Tail = require('tail-file');
 
-appInsights.setup(process.env.APPINSIGHTS_CONNECTION_STRING)
+appInsights.setup(process.env.APPINSIGHTS_CONNECTION_STRING || process.env.APPLICATIONINSIGHTS_CONNECTION_STRING)
     .setAutoDependencyCorrelation(false)
     .setAutoCollectRequests(false)
     .setAutoCollectPerformance(false, false)
@@ -20,6 +18,8 @@ appInsights.defaultClient.commonProperties = {
 
 const client = appInsights.defaultClient;
 
+const chokidar = require('chokidar');
+const Tail = require('tail-file');
 class Tail_To_Insights {
     constructor(path) {
         this.path = path;
@@ -36,6 +36,8 @@ class Tail_To_Insights {
         });
     }
 }
+
+const pathToWatch = '/var/log' || process.env.PATH_TO_WATCH
 
 const filesBeingTailed = {}
 chokidar.watch('/var/log', {
