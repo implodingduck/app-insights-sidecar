@@ -85,7 +85,7 @@ https.createServer(options, (req, res) => {
             }
             if (jsonPatch){
                 resp.response.patchType = "JSONPatch"
-                resp.response.patch = Buffer.from(JSON.stringify(jsonPatch)).toString('base64')
+                resp.response.patch = jsonPatch //Buffer.from(JSON.stringify(jsonPatch)).toString('base64')
             }
             console.log(`My resp: ${JSON.stringify(resp)}`)
             res.end(JSON.stringify(resp));
