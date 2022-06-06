@@ -24,9 +24,19 @@ https.createServer(options, (req, res) => {
             body += chunk.toString(); // convert Buffer to string
         });
         req.on("end", () => {
-            
+            console.log(`hello world! ${body}`)
             res.writeHead(200, { "Content-Type": "application/json" });
-            res.end("{ \"hello\": \"world\" }");
+            
+            let resp = {
+                "apiVersion": "admission.k8s.io/v1",
+                "kind": "AdmissionReview",
+                "response": {
+                  "uid": JSON.parse(body).uid,
+                  "allowed": true
+                }
+            }
+            console.log(`My resp: ${resp}`)
+            res.end(JSON.stringify(resp));
             
             
         });

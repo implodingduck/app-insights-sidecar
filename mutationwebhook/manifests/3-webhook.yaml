@@ -1,0 +1,24 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: app-insights-sidecar-webhook
+  namespace: kube-system
+  labels:
+    app: app-insights-sidecar-webhook
+webhooks:
+- admissionReviewVersions: ["v1"]
+  name: app-insights-sidecar-webhook.azmk8s.io
+  clientConfig:
+    caBundle: ${kubectl config view --raw --minify --flatten -o jsonpath='{.clusters[].cluster.certificate-authority-data}'}
+    service:
+      name: app-insights-sidecar-webhook
+      namespace: default
+      path: "/"
+      port: 443
+  rules:
+    - operations: ["CREATE"]
+      apiGroups: [""]
+      apiVersions: ["v1"]
+      resources: ["pods"]
+  sideEffects: None
+  failurePolicy: Ignore

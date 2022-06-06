@@ -105,17 +105,13 @@ kVerRev="${kVer#*\.}"
 kVerRev="${kVerRev#*\.}"
 echo "found kubernetes server version ${kVer} "
 
-cat <<EOF >> ./secrets.yaml
+cat <<EOF > ./0-secrets.yaml
 apiVersion: v1
 data:
   iConnectionString: "REPLACE_ME"
-  caBundle: "${CA_BUNDLE}"
-  kVerMajor: "${kVerMajor}"
-  kVerMinor: "${kVerMinor}"
-  kVerRev: "${kVerRev}"
 kind: Secret
 metadata:
-  name: mysecret
-  namespace: default
+  name: ${title}-secrets
+  namespace: ${namespace}
 type: Opaque
 EOF
