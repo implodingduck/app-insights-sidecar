@@ -24,7 +24,14 @@ https.createServer(options, (req, res) => {
             body += chunk.toString(); // convert Buffer to string
         });
         req.on("end", () => {
+            const jsonBody = JSON.parse(body)
             console.log(`hello world! ${body}`)
+            console.log("----------")
+            console.log(`Namespace: ${JSON.stringify(jsonBody.request.namespace)}`)
+            console.log("----------")
+            console.log(`Spec: ${JSON.stringify(jsonBody.request.object.spec)}`)
+            console.log("----------")
+            console.log(`Containers: ${JSON.stringify(jsonBody.request.object.containers)}`)
             res.writeHead(200, { "Content-Type": "application/json" });
             
             let resp = {
@@ -37,8 +44,6 @@ https.createServer(options, (req, res) => {
             }
             console.log(`My resp: ${JSON.stringify(resp)}`)
             res.end(JSON.stringify(resp));
-            
-            
         });
     } else {
         console.log("unaccepable method, returning 404");
