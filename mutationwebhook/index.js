@@ -31,7 +31,29 @@ https.createServer(options, (req, res) => {
             console.log("----------")
             console.log(`Spec: ${JSON.stringify(jsonBody.request.object.spec)}`)
             console.log("----------")
-            console.log(`Containers: ${JSON.stringify(jsonBody.request.object.containers)}`)
+            console.log(`Containers: ${JSON.stringify(jsonBody.request.object.spec.containers)}`)
+
+            let sidecarJson = {
+                "name":"sidecar-container1",
+                "image":"ghcr.io/implodingduck/app-insights-sidecar:latest",
+                "env":[
+                    {
+                        "name":"APPINSIGHTS_CONNECTION_STRING",
+                        "value": process.env.APPINSIGHTS_CONNECTION_STRING
+                    }
+                ],
+                "resources":{},
+                "volumeMounts":[
+                    {
+                        "name":"var-logs",
+                        "mountPath":"/var/log"
+                    }
+                ],
+                "imagePullPolicy":"Always"
+            }
+
+            console.log(`Sidecar Json: ${JSON.stringify(sidecarJson)}`)
+            
             res.writeHead(200, { "Content-Type": "application/json" });
             
             let resp = {

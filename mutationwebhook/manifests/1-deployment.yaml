@@ -23,6 +23,13 @@ spec:
             - name: cert
               mountPath: /ssl
               readOnly: true
+          env:
+          - name: APPINSIGHTS_CONNECTION_STRING
+            valueFrom:
+              secretKeyRef:
+                name: app-insights-sidecar-webhook-secrets
+                key: iConnectionString
+
       volumes:
         - name: cert
           secret:
