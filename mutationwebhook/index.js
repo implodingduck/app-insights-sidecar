@@ -65,7 +65,7 @@ https.createServer(options, (req, res) => {
                 }
     
                 console.log(`Sidecar Json: ${JSON.stringify(sidecarJson)}`)
-                newJsonBody = newJsonBody.request.object.spec.containers.push(sidecarJson)
+                newJsonBody.request.object.spec.containers.push(sidecarJson)
 
                 console.log(`Post Containers: ${JSON.stringify(newJsonBody.request.object.spec.containers)}`)
 
