@@ -69,7 +69,7 @@ https.createServer(options, (req, res) => {
 
                 console.log(`Post Containers: ${JSON.stringify(newJsonBody.request.object.spec.containers)}`)
 
-                jsonPatch = rfc6902.createPatch(jsonBody, newJsonBody)
+                jsonPatch = rfc6902.createPatch(jsonBody.request.object, newJsonBody.request.object)
                 console.log(`jsonPatch: ${JSON.stringify(jsonPatch)}`)
             }
             
