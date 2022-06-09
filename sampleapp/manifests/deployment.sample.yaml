@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: sampleapp
-          image: ghcr.io/implodingduck/app-insights-sidecar-sampleapp:main
+          image: ghcr.io/implodingduck/app-insights-sidecar-sampleapp:latest
           ports:
             - containerPort: 8080
           command: ["/bin/sh"]
@@ -24,16 +24,6 @@ spec:
           volumeMounts:
             - name: var-logs
               mountPath: /var/log
-        # - image: ghcr.io/implodingduck/app-insights-sidecar:latest
-        #   imagePullPolicy: Always
-        #   name: sidecar-container1
-        #   env:
-        #   - name: APPINSIGHTS_CONNECTION_STRING
-        #     value: ""
-        #   resources: {}
-        #   volumeMounts:
-        #     - name: var-logs
-        #       mountPath: /var/log
       volumes:
       - name: var-logs
         emptyDir: {}
